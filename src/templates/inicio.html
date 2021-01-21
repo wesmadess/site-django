@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block head_title %}Bienvenidos | {{ block.super }} {% endblock %}
+
+<style>
+    {% block style %}
+    .jumbotron {
+        background-color:aquamarine !important;
+        color: black !important;
+    }
+
+    .fa-5x{
+        font-size: 6em !important;
+    }
+
+    {% endblock %}
+</style>
+
+{% block jumbotron %}
+
+{% if request.user.is_staff %}
+<table class='table'>
+{% for instance in queryset %}
+<tr><td>{{ forloop.counter }}</td><td>{{ instance}}</td><td>{{ instance.nombre }}</td><td>hace {{ instance.timestamp|timesince }}</td></tr><br/>
+{% endfor %}
+</table>
+{% else %}
+
+<div class=jumbotron>
+<div class="bg-light p-5 rounded">
+<main class="container">
+<div class='row'>
+    <div class='col-sm-6'>
+        <h1>Prueba Django</h1>
+        <p class="lead">Este es un proyecto de prueba en donde se utiliza Python y el Framework Django.</p>
+        <a class="btn btn-lg btn-primary" href="/docs/5.0/components/navbar/" role="button">Ingresar &raquo;</a>
+    </div>
+    <div class='col-sm-6'>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/91GTuZWCQmY" frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+        </iframe>
+        <!-- <img src='{% static "img/python.jpg" %}' class='img-responsive' />  -->
+    </div>
+</div>
+</main>
+</div>
+</div>
+
+{% endif %}
+{% endblock %}
+
+{{ titulo }}<br/>
+{{ request.user }}
+<hr/>
+<br/>
+
+{% block content %}
+{% if not request.user.is_staff %}
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+    <div class='col-sm-3'>
+        <p class='lead text-align-center'>Creado con Django &amp; Bootstrap</p>
+        <img src='{% static "img/python.jpg" %}' class='img-responsive' />
+    </div>
+
+    <div class='col-sm-3'>
+        <p class='lead text-align-center'>Creado con Django &amp; Bootstrap.<br/><br/>
+            <i class="fas fa-bullhorn fa-5x"></i>
+        </p>
+    </div>
+
+    <div class='col-sm-3'>
+    {% if not user.is_authenticated %}
+        <p class='lead text-align-center'>Subscribirte</p>
+        <form method="POST" action="">{% csrf_token %}
+            {{ el_form|crispy }}
+            <br/><input class='btn btn-primary' type="submit" value="Enviar" />
+        </form>
+        {% else %}
+            <p class='lead text-align-center'>{{ titulo }}<br/><i class="fa fa-hand-peace-o fa-5x" aria-hidden="true"></i></p>
+        {% endif %}
+    </div>
+
+</div>
+<hr/>
+{% endif %}
+{% endblock %}

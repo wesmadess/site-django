@@ -1,0 +1,39 @@
+<!doctype html>
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.79.0">
+    <title>{% block head_title %}TEST DJANGO{% endblock %}</title>
+
+    <style>
+      {% block style %}{% endblock %}
+    </style>
+
+    {% include "head_css.html" %}
+
+  </head>
+  <body>
+    
+{% include "navbar.html" %}
+
+{% block jumbotron %}
+{% endblock %}
+
+<main class="container">
+
+{% block content %}
+{% endblock %}
+
+</main>
+
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+      
+  </body>
+</html>
