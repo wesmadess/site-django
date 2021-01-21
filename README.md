@@ -1,0 +1,1 @@
+Proyecto que demuestra la utilización de Django para la creación de un sitio web con autenticación
